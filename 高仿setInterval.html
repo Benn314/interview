@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function delay(duration) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve();
+          }, duration);
+        });
+      }
+      async function test() {
+        var count = 0;
+        while (true) {
+          await delay(1000);
+          console.log(count++); // 相当于计时器了
+        }
+      }
+      test();
+    </script>
+  </body>
+</html>

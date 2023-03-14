@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //代理一个目标对象
+      //target：目标对象
+      //handler：是一个普通对象，其中可以重写底层实现(可以重写反射里面所有的api)
+      //返回一个代理对象
+      // new Proxy(target, handler)
+      const obj = {
+        a: 1,
+        b: 2,
+      };
+
+      const proxy = new Proxy(obj, {
+        set(target, propertyKey, value) {
+          // console.log(target, propertyKey, value);
+          // target[propertyKey] = value;修改属性的值。重写了底层实现
+
+          // 等价于
+          Reflect.set(target, propertyKey, value);
+        },
+        get(target, propertyKey) {
+          if (Reflect.has(target, propertyKey)) {
+            return Reflect.get(target, propertyKey);
+          } else {
+            return -1;
+          }
+        },
+        has(target, propertyKey) {
+          return false; //代理说没有就没有
+        },
+      });
+      // console.log(proxy);
+      proxy.a = 10;
+      console.log(proxy.a); //10
+
+      console.log(proxy.d); //运行get -1
+      console.log("a" in proxy); //false
+    </script>
+  </body>
+</html>

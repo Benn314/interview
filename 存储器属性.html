@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>
+      <span>姓名：</span>
+      <span id="name"></span>
+    </p>
+    <p>
+      <span>年龄：</span>
+      <span id="age"></span>
+    </p>
+    <script>
+      const spanName = document.getElementById("name");
+      const spanAge = document.getElementById("age");
+      const user = {};
+      Object.defineProperties(user, {
+        name: {
+          get() {
+            return spanName.innerText;
+            //获取页面窗口中对应的元素内容
+          },
+          set(val) {
+            spanName.innerText = val;
+          },
+        },
+        age: {
+          get() {
+            return spanAge.innerText;
+          },
+          set(val) {
+            if (typeof val !== "number") {
+              throw new TypeError("年龄必须是一个数字");
+            }
+            if (val < 0) {
+              val = 0;
+            } else if (val > 200) {
+              val = 200;
+            }
+            spanAge.innerText = val;
+          },
+        },
+      });
+      user.name = "凌云木";
+      // user.age = 1200;
+      user.age = "凌云木";
+      console.log(user.name);
+
+      // const obj = {
+      //   b: 2,
+      // };
+      // Object.defineProperty(obj, "a", {
+      //   get() {
+      //     console.log("运行了属性a的get函数");
+      //     // return obj._a;
+      //   },
+      //   set(val) {
+      //     console.log("运行了属性a的set函数", val);
+      //     // obj._a = val;
+      //   },
+      // });
+      // // obj.a的时候运行get函数
+      // // obj.a赋值的时候运行set函数
+      // // 所以console.log(obj.a)//undefined,因为get函数没有返回结果
+      // obj.a = 1; //相当于set(20)
+      // console.log(obj.a); // 相当于console.log(get()) 然后输出a的值 undefined
+      // // 运行set
+      // // 运行get
+      // // 然后输出a的值 undefined
+      // console.log(obj.b);
+    </script>
+  </body>
+</html>
